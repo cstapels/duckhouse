@@ -2,7 +2,6 @@
 #include <BMP180I2C.h>
 #include <ThingSpeak.h>
 
-
 #define I2C_ADDRESS 0x77
 #define uS_TO_S_FACTOR 1000000ULL       /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP 1000               /* Time ESP32 will go to sleep (in seconds) */
@@ -17,21 +16,48 @@ WiFiClient client;
 
 void setup() {
   	Serial.begin(115200);
+    Serial.println("Start");
+      connectWiFi();
   // put your setup code here, to run once:
 	   Wire.begin();
-     	//begin() initializes the interface, checks the sensor ID and reads the calibration parameters.  
-	if (!bmp180.begin())
-	{
-		Serial.println("begin() failed. check your BMP180 Interface and I2C Address.");
-		while (1);
-	}
+
+
+    // Try to initialize BMP180 sensor
+    if (!bmp180.begin()) {
+        Serial.println("BMP180 initialization failed. Check interface and address.");
+        ThingSpeak.setStatus("Sensor Error: BMP180 not detected");
+        ThingSpeak.writeFields(writeChannelId, writeAPIKey);
+
+        // Optionally, retry a few times before giving up
+        for (int i = 0; i < 3; i++) {
+            delay(1000); // Wait 1 second before retrying
+            if (bmp180.begin()) {
+                Serial.println("BMP180 successfully initialized after retry.");
+                ThingSpeak.setStatus("Sensor recovered after retry.");
+                ThingSpeak.writeFields(writeChannelId, writeAPIKey);
+                break;
+            }
+        }
+
+        if (!bmp180.begin()) {
+            Serial.println("BMP180 initialization failed after retries. Continuing without sensor.");
+            ThingSpeak.setStatus("Sensor permanently unavailable.");
+            ThingSpeak.writeFields(writeChannelId, writeAPIKey);
+        }
+      Serial.println("Going to sleep now");
+      delay(1000);
+      esp_deep_sleep_start();
+    }
+
   	  bmp180.resetToDefaults();
     	bmp180.setSamplingMode(BMP180MI::MODE_UHR);
-      connectWiFi();
+      client.setConnectionTimeout(30*1000);
+   
+     
 }
 
 void loop() {
-
+delay(1000);
 	if (!bmp180.measureTemperature())
 	{
 		Serial.println("could not start temperature measurement, is a measurement already running?");
