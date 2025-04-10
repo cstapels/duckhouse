@@ -38,8 +38,13 @@ void setup() {
 }
 
 void loop() {
+if(WiFi.status() != WL_CONNECTED){
+    
+    connectWiFi();  
+    }
+
   // Wait a few seconds between measurements.
-  delay(2000);
+  delay(20);
 
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
@@ -68,7 +73,7 @@ void loop() {
     Serial.println(F("Failed to read from DHT sensor 2!"));
     return;
   }
-
+delay(2000);
 
   Serial.print(F("Humidity: "));
   Serial.print(h);
@@ -91,15 +96,19 @@ void loop() {
           ThingSpeak.setField(8, getStrength(3));
     ThingSpeak.writeFields(writeChannelId, writeAPIKey);
 
-      esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+toSleep();
+      delay(10000);//never get here
+
+
+}
+
+void toSleep(){
+        esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
       Serial.println("Setup ESP32 to sleep for every " + String(TIME_TO_SLEEP) + " Seconds");
 
       Serial.println("Going to sleep now");
       delay(1000);
       esp_deep_sleep_start();
-      delay(10000);//never get here
-
-
 }
 
 void connectWiFi() {
@@ -107,11 +116,12 @@ void connectWiFi() {
 
   while ((WiFi.status() != WL_CONNECTED)) {
     WiFi.begin(ssid, password);
+    delay(8500);
     if (tryCounter > 5) {
-   //   connectedBool = false;
+    toSleep();
     }
 
-    delay(7500);
+    
     Serial.println("Connecting to WiFi");
     tryCounter++;
   }
