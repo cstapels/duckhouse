@@ -107,13 +107,13 @@ void connectWiFi() {
 
   while ((WiFi.status() != WL_CONNECTED)) {
     WiFi.begin(ssid, password);
-    if (tryCounter > 9) {
+    if (tryCounter > 8) {
    //   connectedBool = false;
    //reset
    ESP.restart();
     }
 
-    delay(1500+tryCounter*1000);
+    delay(1500+tryCounter*100);
     Serial.println("Connecting to WiFi");
     tryCounter++;
   }
