@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Duck Control</title>
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .charts-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .buttons {
+    margin-bottom: 20px;
+  }
+  button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+</style>
+<script>
+  function sendCommand(command) {
+    const apiKey = 'DI6OLF96SEXYI8M6';
+    const url = `https://api.thingspeak.com/update.json?api_key=${apiKey}&field1=${command}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        alert('Command sent!');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Error sending command!');
+      });
+  }
+</script>
+</head>
+<body>
+
+<div class="container">
+  <div class="buttons">
+    <button onclick="sendCommand(1)">Open Door</button>
+    <button onclick="sendCommand(-1)">Close Door</button>
+    <button onclick="sendCommand(2)">Open Lift</button>
+    <button onclick="sendCommand(-2)">Close Lift</button>
+  </div>
+  <div class="charts-row">
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.mathworks.com/channels/1056342/charts/1?bgcolor=%23ffffff&color=%23d62020&days=1&dynamic=true&type=line&update=15"></iframe>
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.mathworks.com/channels/1415485/charts/3?api_key=HP7M4ROAO0DFZ6YZ&bgcolor=%23ffffff&color=%23d62020&days=2&dynamic=true&type=line&update=15"></iframe>
+  </div>
+  <iframe width="1508" height="1089" src="https://thingspeak.com/apps/matlab_visualizations/195599?height=auto&width=auto"></iframe>
+</div>
+
+</body>
+</html>
