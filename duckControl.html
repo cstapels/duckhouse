@@ -4,6 +4,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--  <link rel="stylesheet" href="duckControl.css">
     <script src="duckControl.js"></script>-->
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+        }
+        .control-button {
+            font-size: 24px;
+            padding: 25px 50px;
+            width: 90%;
+            max-width: 500px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .control-button:hover {
+            background-color: #45a049;
+        }
+        table {
+            margin: 0 auto;
+            width: 90%;
+            max-width: 800px;
+        }
+        .full-width-iframe {
+            width: 100%;
+            height: auto;
+            min-height: 500px;
+        }
+        @media screen and (min-width: 768px) {
+            .control-button {
+                width: auto;
+                padding: 20px 100px;
+            }
+            .full-width-iframe {
+                width: 1508px;
+                height: 1089px;
+            }
+        }
+    </style>
 </head>
 <!-- this is a web page for the duck house control
 //there is a button for open door and close door
@@ -62,7 +104,7 @@ document.getElementById("openDoor").style.backgroundColor = "red";
 document.getElementById("openDoor").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
 setTimeout(function(){
     document.getElementById("openDoor").innerHTML = "Open Door";
-    document.getElementById("openDoor").style.backgroundColor = "green";
+    document.getElementById("openDoor").style.backgroundColor = "#4CAF50";
 }, 3000);
 
     }
@@ -74,7 +116,7 @@ document.getElementById("closeDoor").style.backgroundColor = "red";
 document.getElementById("closeDoor").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
 setTimeout(function(){
     document.getElementById("closeDoor").innerHTML = "Close Door";
-    document.getElementById("closeDoor").style.backgroundColor = "green";
+    document.getElementById("closeDoor").style.backgroundColor = "#4CAF50";
 }, 3000);
 
     }
@@ -85,7 +127,7 @@ document.getElementById("liftUp").style.backgroundColor = "red";
 document.getElementById("liftUp").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
 setTimeout(function(){
     document.getElementById("liftUp").innerHTML = "Lift Up";
-    document.getElementById("liftUp").style.backgroundColor = "green";
+    document.getElementById("liftUp").style.backgroundColor = "#4CAF50";
 }, 3000);
 
     }
@@ -96,7 +138,7 @@ document.getElementById("liftDown").style.backgroundColor = "red";
 document.getElementById("liftDown").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
 setTimeout(function(){
     document.getElementById("liftDown").innerHTML = "Lift Down";
-    document.getElementById("liftDown").style.backgroundColor = "green";
+    document.getElementById("liftDown").style.backgroundColor = "#4CAF50";
 }, 3000);
 }
 
@@ -106,8 +148,8 @@ document.getElementById("getStatus").style.backgroundColor = "red";
 //start a spinner for 3 second
 document.getElementById("getStatus").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
 setTimeout(function(){
-    document.getElementById("getStatus").innerHTML = "Lift Down";
-    document.getElementById("getStatus").style.backgroundColor = "green";
+    document.getElementById("getStatus").innerHTML = "Update Status";
+    document.getElementById("getStatus").style.backgroundColor = "#4CAF50";
 }, 2000);
 
     
@@ -127,27 +169,24 @@ window.onload = updateStatus;
 
 
 <!-- create a table to hold the buttons and statuses -->
-<table> <tr> <td> <h1> Duck House Control </h1> </td> </tr>
- 
-<tr ><td><button style="font-size: 20px; padding: 20px 100px;" id="openDoor" onclick="controlDoor(-1); changeOpenButton();">Open Door</button></td></tr>
-
-<tr><td><br></td></tr>
-<tr><td><button style="font-size: 20px; padding: 20px 100px;" id="closeDoor" onclick="controlDoor(1);changeCloseButton();">Close Door
-</button>  </td></tr> 
-<tr><td><br></td></tr>
-<tr ><td><button style="font-size: 20px; padding: 20px 100px;" id="liftUp" onclick="controlLift(2); changeLiftUpButton();">Lift Up</button></td></tr>
-<tr><td><br></td></tr>
-<tr ><td><button style="font-size: 20px; padding: 20px 100px;" id="liftDown" onclick="controlLift(3); changeLiftDownButton();">Lift Down</button></td></tr>
-<tr><td><br></td></tr>
-<tr ><td>  <button style="font-size: 20px; padding: 20px 100px;" id="getStatus" onclick="updateStatus(); changeStatusButton();">Update Status</button></td></tr>
-<tr><td><br></td></tr>
+    <h1> Duck House Control </h1>
+    <button class="control-button" id="openDoor" onclick="controlDoor(-1); changeOpenButton();">Open Door</button>
+    <button class="control-button" id="closeDoor" onclick="controlDoor(1);changeCloseButton();">Close Door</button>
+    <button class="control-button" id="liftUp" onclick="controlLift(2); changeLiftUpButton();">Lift Up</button>
+    <button class="control-button" id="liftDown" onclick="controlLift(3); changeLiftDownButton();">Lift Down</button>
+    <button class="control-button" id="getStatus" onclick="updateStatus(); changeStatusButton();">Update Status</button>
+<table> 
 <tr><td><p>Current Status: <span id="status"></span></p></td>
     <td>  <p>Last Changed: <span id="lastUpdate"></span></p></td></tr>
-    <tr><td><br></td></tr>
     <tr ><td colspan="2" > <!-- show the camera feed from ThingSpeak in an iframe-->
-    <iframe width="1508" height="1089" src="https://thingspeak.com/apps/matlab_visualizations/195599?height=auto&width=auto"></iframe>
+    <iframe class="full-width-iframe" src="https://thingspeak.com/apps/matlab_visualizations/195599?height=auto&width=auto"></iframe>
         
-
+    </td></tr>
+    <tr><td colspan="2">
+        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.mathworks.com/channels/1056342/charts/1?bgcolor=%23ffffff&color=%23d62020&days=1&dynamic=true&type=line&update=15"></iframe>
+    </td></tr>
+    <tr><td colspan="2">
+        <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.mathworks.com/channels/1415485/charts/3?api_key=HP7M4ROAO0DFZ6YZ&bgcolor=%23ffffff&color=%23d62020&days=2&dynamic=true&type=line&update=15"></iframe>
     </td></tr>
 </table>
     
