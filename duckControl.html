@@ -1,59 +1,156 @@
-<!DOCTYPE html>
-<html>
+
 <head>
-<title>Duck Control</title>
-<style>
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .charts-row {
-    display: flex;
-    flex-direction: row;
-  }
-  .buttons {
-    margin-bottom: 20px;
-  }
-  button {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-  }
-</style>
-<script>
-  function sendCommand(command) {
-    const apiKey = 'DI6OLF96SEXYI8M6';
-    const url = `https://api.thingspeak.com/update.json?api_key=${apiKey}&field1=${command}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        alert('Command sent!');
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Error sending command!');
-      });
-  }
-</script>
+    <title>Duck House Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--  <link rel="stylesheet" href="duckControl.css">
+    <script src="duckControl.js"></script>-->
 </head>
+<!-- this is a web page for the duck house control
+//there is a button for open door and close door
+// There is a present status, and a last changed date-->
+
+<script>
+    //this is a function for the button to open the door
+    //it will send a request to thingspeak to open the door
+    // the url is based on the channel and API key
+
+    function controlDoor(direction){
+        var api_key = "DI6OLF96SEXYI8M6";
+        var url = "https://api.thingspeak.com/update?api_key=" + api_key + "&field1=" + direction;
+        //alert("open door");
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+
+    function controlLift(direction){
+        var api_key = "DI6OLF96SEXYI8M6";
+        var url = "https://api.thingspeak.com/update?api_key=" + api_key + "&field1=" + direction;
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", url, true);
+		  xhttp.send();
+    }
+
+    function updateStatus(){
+        //read the current door status and last data age from ThingSpeak
+        // update the page with the channel information
+        api_key = "DI6OLF96SEXYI8M6";
+        channelID = 1415485;
+        var url = "https://api.thingspeak.com/channels/" + channelID + "/feeds.json?api_key=" + api_key + "&results=1";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                var response = JSON.parse(this.responseText);
+                var status = response.feeds[0].field3;
+                var lastUpdate = response.feeds[0].created_at;
+                var timeNow = new Date();
+                var timeDiff = timeNow.getTime() - Date.parse(lastUpdate);
+
+                document.getElementById("status").innerHTML = status;
+                document.getElementById("lastUpdate").innerHTML = Math.round(timeDiff/1000,0) + " seconds ago";
+                            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+
+    }
+
+    function changeOpenButton(){
+//change the button color to show its been clicked
+document.getElementById("openDoor").style.backgroundColor = "red";
+//start a spinner for 3 second
+document.getElementById("openDoor").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
+setTimeout(function(){
+    document.getElementById("openDoor").innerHTML = "Open Door";
+    document.getElementById("openDoor").style.backgroundColor = "green";
+}, 3000);
+
+    }
+
+    function changeCloseButton(){
+//change the button color to show its been clicked
+document.getElementById("closeDoor").style.backgroundColor = "red";
+//start a spinner for 3 second
+document.getElementById("closeDoor").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
+setTimeout(function(){
+    document.getElementById("closeDoor").innerHTML = "Close Door";
+    document.getElementById("closeDoor").style.backgroundColor = "green";
+}, 3000);
+
+    }
+    function changeLiftUpButton(){
+//change the button color to show its been clicked
+document.getElementById("liftUp").style.backgroundColor = "red";
+//start a spinner for 3 second
+document.getElementById("liftUp").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
+setTimeout(function(){
+    document.getElementById("liftUp").innerHTML = "Lift Up";
+    document.getElementById("liftUp").style.backgroundColor = "green";
+}, 3000);
+
+    }
+    function changeLiftDownButton(){
+//change the button color to show its been clicked
+document.getElementById("liftDown").style.backgroundColor = "red";
+//start a spinner for 3 second
+document.getElementById("liftDown").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
+setTimeout(function(){
+    document.getElementById("liftDown").innerHTML = "Lift Down";
+    document.getElementById("liftDown").style.backgroundColor = "green";
+}, 3000);
+}
+
+    function changeStatusButton(){
+//change the button color to show its been clicked
+document.getElementById("getStatus").style.backgroundColor = "red";
+//start a spinner for 3 second
+document.getElementById("getStatus").innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
+setTimeout(function(){
+    document.getElementById("getStatus").innerHTML = "Lift Down";
+    document.getElementById("getStatus").style.backgroundColor = "green";
+}, 2000);
+
+    
+//when the page loads, call the updateStatus function
+window.onload = updateStatus;
+
+}
+
+</script>
+
 <body>
+<!--this is the button for open the door
+//when the button is clicked, it will call the controlDoor function
+//and change the button color to red
+//after 3 seconds, it will change the button color back to green
+//and change the button text back to "Open Door"-->
 
-<div class="container">
-  <div class="buttons">
-    <button onclick="sendCommand(1)">Open Door</button>
-    <button onclick="sendCommand(-1)">Close Door</button>
-    <button onclick="sendCommand(2)">Open Lift</button>
-    <button onclick="sendCommand(-2)">Close Lift</button>
-  </div>
-  <div class="charts-row">
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.mathworks.com/channels/1056342/charts/1?bgcolor=%23ffffff&color=%23d62020&days=1&dynamic=true&type=line&update=15"></iframe>
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.mathworks.com/channels/1415485/charts/3?api_key=HP7M4ROAO0DFZ6YZ&bgcolor=%23ffffff&color=%23d62020&days=2&dynamic=true&type=line&update=15"></iframe>
-  </div>
-  <iframe width="1508" height="1089" src="https://thingspeak.com/apps/matlab_visualizations/195599?height=auto&width=auto"></iframe>
-</div>
 
-</body>
-</html>
+<!-- create a table to hold the buttons and statuses -->
+<table> <tr> <td> <h1> Duck House Control </h1> </td> </tr>
+ 
+<tr ><td><button style="font-size: 20px; padding: 20px 100px;" id="openDoor" onclick="controlDoor(-1); changeOpenButton();">Open Door</button></td></tr>
+
+<tr><td><br></td></tr>
+<tr><td><button style="font-size: 20px; padding: 20px 100px;" id="closeDoor" onclick="controlDoor(1);changeCloseButton();">Close Door
+</button>  </td></tr> 
+<tr><td><br></td></tr>
+<tr ><td><button style="font-size: 20px; padding: 20px 100px;" id="liftUp" onclick="controlLift(2); changeLiftUpButton();">Lift Up</button></td></tr>
+<tr><td><br></td></tr>
+<tr ><td><button style="font-size: 20px; padding: 20px 100px;" id="liftDown" onclick="controlLift(3); changeLiftDownButton();">Lift Down</button></td></tr>
+<tr><td><br></td></tr>
+<tr ><td>  <button style="font-size: 20px; padding: 20px 100px;" id="getStatus" onclick="updateStatus(); changeStatusButton();">Update Status</button></td></tr>
+<tr><td><br></td></tr>
+<tr><td><p>Current Status: <span id="status"></span></p></td>
+    <td>  <p>Last Changed: <span id="lastUpdate"></span></p></td></tr>
+    <tr><td><br></td></tr>
+    <tr ><td colspan="2" > <!-- show the camera feed from ThingSpeak in an iframe-->
+    <iframe width="1508" height="1089" src="https://thingspeak.com/apps/matlab_visualizations/195599?height=auto&width=auto"></iframe>
+        
+
+    </td></tr>
+</table>
+    
+
+
+ </body>
