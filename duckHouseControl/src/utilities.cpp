@@ -79,7 +79,7 @@ liftTime = millis();
 
   int stopLift() {
   Serial.println("StopLift");
-  digitalWrite(LIFT_UP,LOW);
+
 digitalWrite(LIFT_UP,LOW);
 digitalWrite(LIFT_DOWN,LOW);
   digitalWrite(LIFT_POWER, LOW);
@@ -96,7 +96,6 @@ digitalWrite(LIFT_DOWN,LOW);
 int checkLimit(int direction) {  //direction ==1 for open, 0 for close
                                  // Serial.println("CheckLimit");
   int myValue = 0;
-  //return(1);
 
   //write power pin high
   if (direction) {

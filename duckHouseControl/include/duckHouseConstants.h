@@ -21,19 +21,6 @@
 
 // WiFi configuration
 
-// #define ssid  "still_waters"
-// #define password  "33turkeys511"
-// #define writeAPIKey  "DI6OLF96SEXYI8M6"
-// #define readAPIKey  "HP7M4ROAO0DFZ6YZ"
-// #define readChannelId  1415485L
-// #define writeChannelId  1415485L
-
-
-  // Sleep and timing defaults
-  const uint64_t ButtonPinBitmask = 0xF00000000ULL;
-
-  #define MicrosecondsToSecondsFactor  1000000ULL
-
 
  // const uint32_t AwakeTimeMs = 8000;
   #define LiftTimeLimitMs  30 * 1000;
@@ -47,8 +34,8 @@
   #define OpenLimitPin = 15;
   #define CloseLimitPin = 21
   #define LiftPowerPin = 13
-  #define LiftUpPin = 14
-  #define LiftDownPin = 12
+  #define LiftUpPin = 35 //14
+  #define LiftDownPin = 34 //12
   #define OPEN_DOOR_BUTTON 33
   #define CLOSE_DOOR_BUTTON 32
   #define OPEN_LIFT_BUTTON 35
