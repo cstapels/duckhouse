@@ -45,7 +45,7 @@ unsigned int debounceTime = 200;
 long doorTime = millis();
 long liftTime = millis();
 
-String myStatus="";
+String statusMessage="";
 
 /*
 Method to print the reason by which ESP32
@@ -242,12 +242,15 @@ void loop() {
   if (wakeReason == 2) {
     Serial.println("read write ThingSpeak");
     getThingSpeakData();  //check internet for commands
+      wakeReason=0; //not sure I want to do this, I think id rather use the status
+
   }
 
 
   if (buttonPushed == 1) {
     blinkX(2, 25);
     Serial.println("buttonEvent " + String(buttonPushed));
+    statusMessage+= " Door Open ";
       buttonPushed = 0;
       if (!doorMoving){
     startDoor(1);
@@ -259,6 +262,7 @@ void loop() {
   }
   if (buttonPushed == 2) {
     blinkX(3, 25);
+     statusMessage+= " Door Closed ";
         Serial.println("buttonEvent " + String(buttonPushed));
       buttonPushed = 0;
          if (!doorMoving){
@@ -271,6 +275,7 @@ void loop() {
   }
   if (buttonPushed == 3) {
     blinkX(4, 25);
+     statusMessage+= " Lift Up ";
       Serial.println("buttonEvent " + String(buttonPushed));
       buttonPushed = 0;
    if (!liftMoving){
@@ -283,6 +288,7 @@ void loop() {
 
   if (buttonPushed == 4) {
     blinkX(5, 25);
+     statusMessage+= " Lift Down ";
        Serial.println("buttonEvent " + String(buttonPushed));
       buttonPushed = 0;
          if (!liftMoving){

@@ -173,7 +173,7 @@ window.onload = updateStatus;
     <button class="control-button" id="openDoor" onclick="controlDoor(-1); changeOpenButton();">Open Door</button>
     <button class="control-button" id="closeDoor" onclick="controlDoor(1);changeCloseButton();">Close Door</button>
     <button class="control-button" id="liftUp" onclick="controlLift(2); changeLiftUpButton();">Lift Up</button>
-    <button class="control-button" id="liftDown" onclick="controlLift(3); changeLiftDownButton();">Lift Down</button>
+    <button class="control-button" id="liftDown" onclick="controlLift(-2); changeLiftDownButton();">Lift Down</button>
     <button class="control-button" id="getStatus" onclick="updateStatus(); changeStatusButton();">Update Status</button>
 <table> 
 <tr><td><p>Current Status: <span id="status"></span></p></td>

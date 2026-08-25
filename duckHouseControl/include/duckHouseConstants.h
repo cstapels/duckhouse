@@ -27,20 +27,15 @@
   #define DoorTimeLimitMs  30 * 1000;
 
   // Board pins
-  #define LedPin = 2
-  #define DoorTimePin = 39
-  #define LiftTimePin = 27
-  #define TimePowerPin = 26
-  #define OpenLimitPin = 15;
-  #define CloseLimitPin = 21
-  #define LiftPowerPin = 13
-  #define LiftUpPin = 35 //14
-  #define LiftDownPin = 34 //12
-  #define OPEN_DOOR_BUTTON 33
-  #define CLOSE_DOOR_BUTTON 32
+
+  //#define LiftPowerPin = 13
+  //#define LiftUpPin = 35 //14
+  //#define LiftDownPin = 34 //12
+  #define OPEN_DOOR_BUTTON 32//33
+  #define CLOSE_DOOR_BUTTON 33//32
   #define OPEN_LIFT_BUTTON 35
   #define CLOSE_LIFT_BUTTON 34
   #define LIGHT_IN_PIN 36
-  #define LIFT_UP 14
-  #define LIFT_DOWN 12
+  #define LIFT_UP 35//14  //double defined above!
+  #define LIFT_DOWN 34//12
   #define LIFT_POWER 13

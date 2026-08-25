@@ -80,11 +80,16 @@ int getThingSpeakData() {
   ThingSpeak.setField(2, rssi);
   ThingSpeak.setField(3, doorState);
   ThingSpeak.setField(4, lightValue);
+  //if statusMessge is not empty, then append it
+if  (statusMessage!="");{
+  ThingSpeak.setStatus(statusMessage);
+}
   ThingSpeak.writeFields(writeChannelId, writeAPIKey);
-  if (doorCommand == 1) { startDoor(1); }
-  if (doorCommand == -1) { startDoor(0); }
-      if (doorCommand == 2) { startLift(1); }
-  if (doorCommand == -2) { startLift(0); }
+
+  if (doorCommand == 1) {  statusMessage+= " Web Door Open"; startDoor(1); }
+  if (doorCommand == -1) { statusMessage+= " Web Door Closed";startDoor(0); }
+      if (doorCommand == 2) { statusMessage+= " Web Lift Up"; startLift(1); }
+  if (doorCommand == -2) { statusMessage+= " Web Lift Down"; startLift(0); }
   runStatus = 0;
   return 1;
 }

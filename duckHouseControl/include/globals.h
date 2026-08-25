@@ -18,3 +18,5 @@ extern int doorTimeLimit;
   extern const long writeChannelId;
 
   extern   const long TimeToSleepSeconds;
+
+  extern String statusMessage;
