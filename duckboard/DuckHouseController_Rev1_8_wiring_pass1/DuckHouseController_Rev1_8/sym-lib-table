@@ -1,0 +1,5 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "DuckHouse") (type "Legacy") (uri "${KIPRJMOD}/DuckHouse.lib") (options "") (descr "Duck House Controller symbols"))
+	(lib (name "duckie") (type "KiCad") (uri "${KIPRJMOD}/DuckHouse.pretty") (options "") (descr ""))
+)

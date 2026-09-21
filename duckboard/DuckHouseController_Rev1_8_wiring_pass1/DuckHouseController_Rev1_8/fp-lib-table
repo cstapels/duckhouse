@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "DuckHouse")(type "KiCad")(uri "${KIPRJMOD}/DuckHouse.pretty")(options "")(descr "Duck House Controller footprints"))
+)

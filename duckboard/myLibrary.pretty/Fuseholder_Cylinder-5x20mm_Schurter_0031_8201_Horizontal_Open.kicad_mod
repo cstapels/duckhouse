@@ -1,0 +1,247 @@
+(footprint "Fuseholder_Cylinder-5x20mm_Schurter_0031_8201_Horizontal_Open"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Fuseholder horizontal open, 5x20mm, 500V, 16A, Schurter 0031.8201, https://us.schurter.com/bundles/snceschurter/epim/_ProdPool_/newDS/en/typ_OGN.pdf")
+	(tags "Fuseholder horizontal open 5x20 Schurter 0031.8201")
+	(property "Reference" "REF**"
+		(at 11.25 -6 0)
+		(layer "F.SilkS")
+		(uuid "aeba69a4-fe7e-45a9-8054-afd4d2c7c844")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Fuse"
+		(at 11.25 6 0)
+		(layer "F.Fab")
+		(uuid "cee1d1d1-d0ef-475e-b7d7-b6b6d84ce886")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "083f84e8-8d47-443f-8b14-be12a4d3f35a")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Fuse"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0bed5b72-5dd5-4e2a-8e32-6670cb5c0920")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property ki_fp_filters "*Fuse*")
+	(sheetname "/")
+	(sheetfile "ESP32Board.kicad_sch")
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -0.11 -4.91)
+		(end 22.61 -4.91)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "36f58244-1398-4e82-9513-372c92e9ca4f")
+	)
+	(fp_line
+		(start -0.11 -1.75)
+		(end -0.11 -4.91)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "33344f60-5835-47ca-bdeb-41b03c061563")
+	)
+	(fp_line
+		(start -0.11 4.91)
+		(end -0.11 1.75)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "e8dda8af-28f3-47a7-861c-d13bb22827b5")
+	)
+	(fp_line
+		(start -0.11 4.91)
+		(end 22.61 4.91)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "32fd7744-e819-4285-8cca-3ebcc629e12f")
+	)
+	(fp_line
+		(start 22.61 -1.75)
+		(end 22.61 -4.91)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "74984ea4-1ace-45bd-b7f2-4429f9e493d6")
+	)
+	(fp_line
+		(start 22.61 4.91)
+		(end 22.61 1.75)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "910e1be9-4f83-4803-a904-94065085bab5")
+	)
+	(fp_line
+		(start -1.75 -5.05)
+		(end 24.25 -5.05)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "438dda05-a7c4-493c-8a94-289f0d2dfdd9")
+	)
+	(fp_line
+		(start -1.75 5.05)
+		(end -1.75 -5.05)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f0e1edba-4dee-43c6-b0c9-e171b50bb84b")
+	)
+	(fp_line
+		(start 24.25 -5.05)
+		(end 24.25 5.05)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "125ad4ea-8df6-4599-be2c-5a80a3140b38")
+	)
+	(fp_line
+		(start 24.25 5.05)
+		(end -1.75 5.05)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "56bb2e2b-d964-45fb-bf22-1de3b9fc293f")
+	)
+	(fp_line
+		(start 0 -4.8)
+		(end 0 4.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "7d017341-b97d-4c5e-81c0-bafeccf4ca3c")
+	)
+	(fp_line
+		(start 0 4.8)
+		(end 22.5 4.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "45f37748-752e-47ac-b02b-dd08982314b7")
+	)
+	(fp_line
+		(start 22.5 -4.8)
+		(end 0 -4.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2885beb6-5f60-4608-a407-63f8c2440781")
+	)
+	(fp_line
+		(start 22.5 4.8)
+		(end 22.5 -4.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ee39832a-3fc6-4e84-bf35-8f73b3c4660c")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 11.25 4 0)
+		(layer "F.Fab")
+		(uuid "3f92ff9f-0c72-482d-8f76-78451f7b98e4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "" np_thru_hole circle
+		(at 11.25 0)
+		(size 2.7 2.7)
+		(drill 2.7)
+		(layers "*.Cu" "*.Mask")
+		(uuid "81c4958c-5f7f-47ee-966c-612bf03fe3c7")
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 3 3)
+		(drill 1.3)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "29f0a43c-7d82-4f96-adaa-68d12fe69157")
+	)
+	(pad "2" thru_hole circle
+		(at 22.5 0)
+		(size 3 3)
+		(drill 1.3)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "2c38fd5c-2174-4811-aaa4-5b35f4c5a26e")
+	)
+	(embedded_fonts no)
+	(model "${KICAD10_3DMODEL_DIR}/Fuse.3dshapes/Fuseholder_Cylinder-5x20mm_Schurter_0031_8201_Horizontal_Open.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

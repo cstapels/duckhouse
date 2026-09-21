@@ -1,0 +1,847 @@
+EESchema Schematic File Version 4
+LIBS:power
+LIBS:device
+LIBS:Connector_Generic
+LIBS:Transistor_FET
+EELAYER 29 0
+EELAYER END
+$Descr A3 16535 11693
+Sheet 1 1
+Title "Duck House Controller"
+Date "2026-09-19"
+Rev "1.7"
+Comp "Preliminary - ESP32U DevKit placeholder"
+Comment1 "ESP32 is removable and programmed via its own USB Mini-B connector"
+Comment2 "Actuator motor power is external to PCB"
+Comment3 "Exact ESP32 symbol/pin mapping to be inserted later"
+$EndDescr
+Text Notes 700 700 0    100  ~ 20
+DUCK HOUSE CONTROLLER - REV 1.7
+Text Notes 700 850 0    55   ~ 12
+PRELIMINARY SCHEMATIC - exact ESP32U DevKit symbol intentionally omitted
+Text Notes 700 1050 0    70   ~ 12
+1. BATTERY INPUT / POWER
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 1
+P 1100 1300
+F 0 "J1" H 1018 1517 50  0000 C CNN
+F 1 "BATTERY" H 1018 1426 50 0000 C CNN
+	1    1100 1300
+	-1 0 0 -1
+$EndComp
+$Comp
+L Device:Fuse F1
+U 1 1 2
+P 1550 1300
+F 0 "F1" V 1353 1300 50 0000 C CNN
+F 1 "8A" V 1444 1300 50 0000 C CNN
+	1    1550 1300
+	0 1 1 0
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 3
+P 2150 1500
+F 0 "C1" H 2265 1546 50 0000 L CNN
+F 1 "100uF 35V" H 2265 1455 50 0000 L CNN
+	1    2150 1500
+	1 0 0 -1
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 4
+P 2850 1500
+F 0 "C2" H 2965 1546 50 0000 L CNN
+F 1 "1uF 35V" H 2965 1455 50 0000 L CNN
+	1    2850 1500
+	1 0 0 -1
+$EndComp
+$Comp
+L Device:C C3
+U 1 1 5
+P 3500 1500
+F 0 "C3" H 3615 1546 50 0000 L CNN
+F 1 "100nF" H 3615 1455 50 0000 L CNN
+	1    3500 1500
+	1 0 0 -1
+$EndComp
+Text Label 1750 1300 0    50   ~ 0
+VBAT_FUSED
+Text Label 2450 1300 0    50   ~ 0
+VBAT
+Text Label 1200 1400 0    50   ~ 0
+GND
+Wire Wire Line
+	1300 1300 1400 1300
+Wire Wire Line
+	1700 1300 3500 1300
+Wire Wire Line
+	2150 1300 2150 1350
+Wire Wire Line
+	2850 1300 2850 1350
+Wire Wire Line
+	3500 1300 3500 1350
+Wire Wire Line
+	1200 1400 3500 1400
+Wire Wire Line
+	2150 1650 2150 1700
+Wire Wire Line
+	2850 1650 2850 1700
+Wire Wire Line
+	3500 1650 3500 1700
+Wire Wire Line
+	1200 1400 1200 1700
+Wire Wire Line
+	1200 1700 3500 1700
+Text Notes 700 2000 0    50   ~ 12
+Battery branch: J1 -> F1 8A -> reverse-polarity MOSFET stage (TBD) -> VBAT. TVS target ~18V and input filtering are across VBAT/GND.
+Text Notes 700 2125 0    50   ~ 12
+Actuator motor power bypasses PCB fuse: battery -> external fuse -> BTS7960 motor controller -> actuator.
+Text Notes 700 2300 0    70   ~ 12
+2. 5V / 3V3 POWER + BTS7960 LOGIC POWER SWITCH
+$Comp
+L Connector_Generic:Conn_01x04 J2
+U 1 1 6
+P 1100 2650
+F 0 "J2" H 1018 2967 50 0000 C CNN
+F 1 "5V BUCK" H 1018 2876 50 0000 C CNN
+	1    1100 2650
+	-1 0 0 -1
+$EndComp
+Text Label 1300 2550 0 50 ~ 0
++5V
+Text Label 1300 2650 0 50 ~ 0
+GND
+Text Label 1300 2750 0 50 ~ 0
+VBAT
+Text Label 1300 2850 0 50 ~ 0
+BUCK_EN
+Text Notes 700 3100 0 50 ~ 12
+External 5V/2A buck. ESP32 DevKit is powered from +5V/VIN and supplies +3V3 via its onboard regulator.
+$Comp
+L Transistor_FET:Q_PMOS_GSD Q1
+U 1 1 7
+P 2800 2700
+F 0 "Q1" H 3005 2746 50 0000 L CNN
+F 1 "27P04" H 3005 2655 50 0000 L CNN
+	1    2800 2700
+	1 0 0 -1
+$EndComp
+$Comp
+L Transistor_FET:Q_NMOS_GSD Q2
+U 1 1 8
+P 2800 3300
+F 0 "Q2" H 3005 3346 50 0000 L CNN
+F 1 "30N06L" H 3005 3255 50 0000 L CNN
+	1    2800 3300
+	1 0 0 -1
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 9
+P 2500 2900
+F 0 "R1" H 2570 2946 50 0000 L CNN
+F 1 "100k" H 2570 2855 50 0000 L CNN
+	1    2500 2900
+	1 0 0 -1
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 10
+P 2150 3300
+F 0 "R2" V 1943 3300 50 0000 C CNN
+F 1 "10k" V 2034 3300 50 0000 C CNN
+	1    2150 3300
+	0 1 1 0
+$EndComp
+Text Label 2900 2450 0 50 ~ 0
++5V
+Text Label 3100 2700 0 50 ~ 0
+MOTOR_CTRL_5V
+Text Label 1750 3300 0 50 ~ 0
+GPIO17
+Text Label 2700 3500 0 50 ~ 0
+GND
+Wire Wire Line
+	2900 2450 2900 2500
+Wire Wire Line
+	2900 2900 2900 3100
+Wire Wire Line
+	2500 2750 2500 2700
+Wire Wire Line
+	2500 2700 2600 2700
+Wire Wire Line
+	2500 3050 2500 3300
+Wire Wire Line
+	2500 3300 2600 3300
+Wire Wire Line
+	2300 3300 2600 3300
+Wire Wire Line
+	2000 3300 1750 3300
+Wire Wire Line
+	2900 3500 2900 3600
+Text Notes 1700 3800 0 50 ~ 12
+GPIO17 HIGH turns BTS7960 logic +5V ON; LOW/reset keeps it OFF. Motor power remains direct battery.
+Text Notes 700 4050 0 70 ~ 12
+3. BTS7960 LOGIC INTERFACES
+$Comp
+L Connector_Generic:Conn_01x05 J3
+U 1 1 11
+P 1200 4450
+F 0 "J3" H 1118 4867 50 0000 C CNN
+F 1 "LIFT BTS7960" H 1118 4776 50 0000 C CNN
+	1    1200 4450
+	-1 0 0 -1
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x05 J4
+U 1 1 12
+P 3500 4450
+F 0 "J4" H 3418 4867 50 0000 C CNN
+F 1 "DOOR BTS7960" H 3418 4776 50 0000 C CNN
+	1    3500 4450
+	-1 0 0 -1
+$EndComp
+Text Notes 1450 4800 0 45 ~ 0
+J3 pins: 1 MOTOR_CTRL_5V, 2 GND, 3 GPIO14 LIFT_UP, 4 GPIO12 LIFT_DOWN, 5 GPIO13 ENABLE
+Text Notes 3750 4800 0 45 ~ 0
+J4 pins: 1 MOTOR_CTRL_5V, 2 GND, 3 GPIO19 DOOR_OPEN, 4 GPIO16 DOOR_CLOSE, 5 GPIO5 ENABLE
+Text Notes 700 5100 0 70 ~ 12
+4. LIMIT SWITCHES
+$Comp
+L Connector_Generic:Conn_01x04 J5
+U 1 1 13
+P 1200 5450
+F 0 "J5" H 1118 5767 50 0000 C CNN
+F 1 "LIMIT SWITCHES" H 1118 5676 50 0000 C CNN
+	1    1200 5450
+	-1 0 0 -1
+$EndComp
+$Comp
+L Device:R R21
+U 1 1 14
+P 2100 5300
+F 0 "R21" V 1893 5300 50 0000 C CNN
+F 1 "470R" V 1984 5300 50 0000 C CNN
+	1    2100 5300
+	0 1 1 0
+$EndComp
+$Comp
+L Device:R R22
+U 1 1 15
+P 2600 5650
+F 0 "R22" H 2670 5696 50 0000 L CNN
+F 1 "10k" H 2670 5605 50 0000 L CNN
+	1    2600 5650
+	1 0 0 -1
+$EndComp
+Text Label 1700 5300 0 50 ~ 0
+GPIO2
+Text Label 2300 5300 0 50 ~ 0
+LIMIT_PWR
+Text Label 2600 5900 0 50 ~ 0
+GND
+Text Notes 1450 5550 0 45 ~ 0
+J5: 1 LIMIT_PWR, 2 DOOR_OPEN_LIMIT, 3 DOOR_CLOSE_LIMIT, 4 LIFT_CLOSE_LIMIT
+Text Notes 1450 6050 0 45 ~ 0
+Each limit path: LIMIT_PWR -> switch -> 470R -> sense GPIO. Each sense has 10k pulldown + 100nF to GND. GPIO2 has 10k pulldown.
+Text Notes 700 6250 0 70 ~ 12
+5. LOCAL PUSHBUTTONS - ACTIVE HIGH
+$Comp
+L Connector_Generic:Conn_01x02 J6
+U 1 1 16
+P 1100 6600
+F 0 "J6" H 1018 6817 50 0000 C CNN
+F 1 "LIFT CLOSE" H 1018 6726 50 0000 C CNN
+	1    1100 6600
+	-1 0 0 -1
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 J7
+U 1 1 17
+P 2700 6600
+F 0 "J7" H 2618 6817 50 0000 C CNN
+F 1 "LIFT OPEN" H 2618 6726 50 0000 C CNN
+	1    2700 6600
+	-1 0 0 -1
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 J8
+U 1 1 18
+P 4300 6600
+F 0 "J8" H 4218 6817 50 0000 C CNN
+F 1 "DOOR CLOSE" H 4218 6726 50 0000 C CNN
+	1    4300 6600
+	-1 0 0 -1
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 J9
+U 1 1 19
+P 5900 6600
+F 0 "J9" H 5818 6817 50 0000 C CNN
+F 1 "DOOR OPEN" H 5818 6726 50 0000 C CNN
+	1    5900 6600
+	-1 0 0 -1
+$EndComp
+Text Notes 700 7300 0 45 ~ 0
+Each button: NO to +3V3; 10k external pulldown + 100nF GPIO-to-GND. Signals: J6 GPIO34, J7 GPIO35, J8 GPIO18, J9 GPIO22.
+Text Notes 700 7450 0 70 ~ 12
+6. ANALOG INPUTS
+Text Notes 700 7525 0 45 ~ 0
+Photosensor (J10) and travel pots (P1/P2) are built out in Section 9, right side of sheet.
+Text Notes 700 7650 0 70 ~ 12
+7. BATTERY ADC
+Text Notes 700 7725 0 45 ~ 0
+Battery divider (R4/R5/C5/R17) is built out in Section 9, right side of sheet. Divider ratio approx 21:1.
+Text Notes 700 7850 0 70 ~ 12
+8. ESP32 DEVKITC
+Text Notes 700 7925 0 45 ~ 0
+Exact 38-pin ESP32-DevKitC footprint used (DuckHouse:ESP32-DevKitC). DevKit is removable and programmed through its own USB connector.
+Text Notes 700 8050 0 40 ~ 0
+Required GPIO nets: GPIO2 LIMIT_PWR, GPIO4 STATUS_LED, GPIO5 DOOR_ENABLE, GPIO12 LIFT_DOWN, GPIO13 LIFT_ENABLE, GPIO14 LIFT_UP, GPIO15 DOOR_OPEN_LIMIT, GPIO16 DOOR_CLOSE, GPIO17 MOTOR_CTRL_5V, GPIO18 DOOR_CLOSE_BTN, GPIO19 DOOR_OPEN, GPIO21 DOOR_CLOSE_LIMIT, GPIO22 DOOR_OPEN_BTN, GPIO25 LIFT_CLOSE_LIMIT, GPIO32 BATTERY_ADC, GPIO33 LIFT_TRAVEL_ADC, GPIO34/35 buttons, GPIO36 PHOTO_ADC, GPIO39 DOOR_TRAVEL_ADC.
+$Comp
+L DuckHouse:ESP32-DevKitC U1
+U 1 1 67000001
+P 8500 4000
+F 0 "U1" H 8500 5150 60  0000 C CNN
+F 1 "ESP32-DevKitC" H 8500 5050 60  0000 C CNN
+F 2 "DuckHouse:ESP32-DevKitC" H 8500 2800 50  0001 C CNN
+F 3 "" H 8500 4000 50  0001 C CNN
+	1    8500 4000
+	1 0 0 -1
+$EndComp
+Text Notes 12900 550 0    70   ~ 12
+9. PHOTOSENSOR / BATTERY ADC / TRAVEL POTS / STATUS LED / 5V OUT / PROG
+$Comp
+L Connector_Generic:Conn_01x03 J10
+U 1 1 100
+P 12900 900
+F 0 "J10" H 12980 1040 50 0000 L CNN
+F 1 "PHOTOSENSOR" H 12980 950 50 0000 L CNN
+	1    12900 900
+	-1 0 0 -1
+$EndComp
+Text Label 13100 800 0    50   ~ 0
++3V3
+Text Label 13100 900 0    50   ~ 0
+GND
+Text Label 13100 1000 0    50   ~ 0
+SENSE_RAW
+$Comp
+L Device:R R3
+U 1 1 101
+P 13400 1000
+F 0 "R3" H 13480 1140 50 0000 L CNN
+F 1 "1k" H 13480 1050 50 0000 L CNN
+	1    13400 1000
+	0 1 1 0
+$EndComp
+Text Label 13250 1000 0    50   ~ 0
+SENSE_RAW
+Text Label 13550 1000 0    50   ~ 0
+GPIO36
+$Comp
+L Device:C C4
+U 1 1 102
+P 13550 1250
+F 0 "C4" H 13630 1390 50 0000 L CNN
+F 1 "100nF" H 13630 1300 50 0000 L CNN
+	1    13550 1250
+	1 0 0 -1
+$EndComp
+Text Label 13550 1100 0    50   ~ 0
+GPIO36
+Text Label 13550 1400 0    50   ~ 0
+GND
+Text Notes 12900 1550 0    40   ~ 12
+J10: 1 +3V3, 2 GND, 3 SENSE. R3/C4 form a basic RC filter (photosensor filtering is an open item, TBD).
+Text Notes 12900 1700 0    55   ~ 12
+BATTERY VOLTAGE DIVIDER (21:1)
+$Comp
+L Device:R R4
+U 1 1 103
+P 12900 1850
+F 0 "R4" H 12980 1990 50 0000 L CNN
+F 1 "2M 1%" H 12980 1900 50 0000 L CNN
+	1    12900 1850
+	1 0 0 -1
+$EndComp
+Text Label 12900 1700 0    50   ~ 0
+VBAT
+Text Label 12900 2000 0    50   ~ 0
+BATTERY_SENSE
+$Comp
+L Device:R R5
+U 1 1 104
+P 12900 2350
+F 0 "R5" H 12980 2490 50 0000 L CNN
+F 1 "100k 1%" H 12980 2400 50 0000 L CNN
+	1    12900 2350
+	1 0 0 -1
+$EndComp
+Text Label 12900 2200 0    50   ~ 0
+BATTERY_SENSE
+Text Label 12900 2500 0    50   ~ 0
+GND
+$Comp
+L Device:C C5
+U 1 1 105
+P 13300 2350
+F 0 "C5" H 13380 2490 50 0000 L CNN
+F 1 "TBD" H 13380 2400 50 0000 L CNN
+	1    13300 2350
+	1 0 0 -1
+$EndComp
+Text Label 13300 2200 0    50   ~ 0
+BATTERY_SENSE
+Text Label 13300 2500 0    50   ~ 0
+GND
+$Comp
+L Device:R R17
+U 1 1 106
+P 13600 2650
+F 0 "R17" H 13680 2790 50 0000 L CNN
+F 1 "1k" H 13680 2700 50 0000 L CNN
+	1    13600 2650
+	0 1 1 0
+$EndComp
+Text Label 13450 2650 0    50   ~ 0
+BATTERY_SENSE
+Text Label 13750 2650 0    50   ~ 0
+GPIO32
+Text Notes 12900 2800 0    40   ~ 12
+C5 value TBD per spec (open item #13). R17 is a series-protection resistor to GPIO32.
+Text Notes 12900 2950 0    55   ~ 12
+TRAVEL-TIME POTENTIOMETERS (Bourns 3352E-1-105, 1M)
+$Comp
+L Device:R_POT P1
+U 1 1 107
+P 12900 3100
+F 0 "P1" H 12980 3240 50 0000 L CNN
+F 1 "1M" H 12980 3150 50 0000 L CNN
+	1    12900 3100
+	0 1 1 0
+$EndComp
+Text Label 12750 3100 0    50   ~ 0
++3V3
+Text Label 13050 3100 0    50   ~ 0
+GND
+Text Label 12900 3250 0    50   ~ 0
+GPIO33
+$Comp
+L Device:C C13
+U 1 1 108
+P 13300 3400
+F 0 "C13" H 13380 3540 50 0000 L CNN
+F 1 "100nF" H 13380 3450 50 0000 L CNN
+	1    13300 3400
+	1 0 0 -1
+$EndComp
+Text Label 13300 3250 0    50   ~ 0
+GPIO33
+Text Label 13300 3550 0    50   ~ 0
+GND
+$Comp
+L Device:R_POT P2
+U 1 1 109
+P 12900 3700
+F 0 "P2" H 12980 3840 50 0000 L CNN
+F 1 "1M" H 12980 3750 50 0000 L CNN
+	1    12900 3700
+	0 1 1 0
+$EndComp
+Text Label 12750 3700 0    50   ~ 0
++3V3
+Text Label 13050 3700 0    50   ~ 0
+GND
+Text Label 12900 3850 0    50   ~ 0
+GPIO39
+$Comp
+L Device:C C14
+U 1 1 110
+P 13300 4000
+F 0 "C14" H 13380 4140 50 0000 L CNN
+F 1 "100nF" H 13380 4050 50 0000 L CNN
+	1    13300 4000
+	1 0 0 -1
+$EndComp
+Text Label 13300 3850 0    50   ~ 0
+GPIO39
+Text Label 13300 4150 0    50   ~ 0
+GND
+Text Notes 12900 4300 0    40   ~ 12
+P1 = Lift pot (wiper -> GPIO33). P2 = Door pot (wiper -> GPIO39). R_POT pin geometry is assumed, not verified in-app - check ERC.
+Text Notes 12900 4450 0    55   ~ 12
+STATUS LED (Blue SMD3528, active HIGH)
+$Comp
+L Device:R R16
+U 1 1 111
+P 12900 4600
+F 0 "R16" H 12980 4740 50 0000 L CNN
+F 1 "330R" H 12980 4650 50 0000 L CNN
+	1    12900 4600
+	0 1 1 0
+$EndComp
+Text Label 12750 4600 0    50   ~ 0
+GPIO4
+Text Label 13050 4600 0    50   ~ 0
+LED_A
+$Comp
+L Device:LED D1
+U 1 1 112
+P 13050 4850
+F 0 "D1" H 13130 4990 50 0000 L CNN
+F 1 "BLUE SMD3528" H 13130 4900 50 0000 L CNN
+	1    13050 4850
+	1 0 0 -1
+$EndComp
+Text Label 13050 4700 0    50   ~ 0
+LED_A
+Text Label 13050 5000 0    50   ~ 0
+GND
+Text Notes 12900 5150 0    55   ~ 12
+J11 - 5V OUTPUT
+$Comp
+L Connector_Generic:Conn_01x02 J11
+U 1 1 113
+P 12900 5300
+F 0 "J11" H 12980 5440 50 0000 L CNN
+F 1 "5V OUT" H 12980 5350 50 0000 L CNN
+	1    12900 5300
+	-1 0 0 -1
+$EndComp
+Text Label 13100 5300 0    50   ~ 0
++5V
+Text Label 13100 5400 0    50   ~ 0
+GND
+Text Notes 12900 5600 0    55   ~ 12
+J12 - PROGRAMMING/DEBUG (connector + pinout TBD; ESP32 DevKit has its own USB)
+$Comp
+L Connector_Generic:Conn_01x04 J12
+U 1 1 114
+P 12900 5850
+F 0 "J12" H 12980 5990 50 0000 L CNN
+F 1 "PROG/DEBUG" H 12980 5900 50 0000 L CNN
+	1    12900 5850
+	-1 0 0 -1
+$EndComp
+Text Label 13100 5750 0    50   ~ 0
++3V3
+Text Label 13100 5850 0    50   ~ 0
+DEBUG_TX
+Text Label 13100 5950 0    50   ~ 0
+DEBUG_RX
+Text Label 13100 6050 0    50   ~ 0
+GND
+Text Notes 14300 550 0    70   ~ 12
+10b. LIMIT-SWITCH SENSE FILTERING + BOOT/STRAPPING PULLDOWNS (Rev 1.7)
+$Comp
+L Device:R R6
+U 1 1 115
+P 14500 900
+F 0 "R6" H 14580 1040 50 0000 L CNN
+F 1 "470R" H 14580 950 50 0000 L CNN
+	1    14500 900
+	0 1 1 0
+$EndComp
+Text Label 14350 900 0    50   ~ 0
+DOOR_OPEN_LIMIT_RAW
+Text Label 14650 900 0    50   ~ 0
+GPIO15
+$Comp
+L Device:R R9
+U 1 1 116
+P 14650 1150
+F 0 "R9" H 14730 1290 50 0000 L CNN
+F 1 "10k" H 14730 1200 50 0000 L CNN
+	1    14650 1150
+	1 0 0 -1
+$EndComp
+Text Label 14650 1000 0    50   ~ 0
+GPIO15
+Text Label 14650 1300 0    50   ~ 0
+GND
+$Comp
+L Device:C C6
+U 1 1 117
+P 14950 1150
+F 0 "C6" H 15030 1290 50 0000 L CNN
+F 1 "100nF" H 15030 1200 50 0000 L CNN
+	1    14950 1150
+	1 0 0 -1
+$EndComp
+Text Label 14950 1000 0    50   ~ 0
+GPIO15
+Text Label 14950 1300 0    50   ~ 0
+GND
+$Comp
+L Device:R R7
+U 1 1 118
+P 14500 1450
+F 0 "R7" H 14580 1590 50 0000 L CNN
+F 1 "470R" H 14580 1500 50 0000 L CNN
+	1    14500 1450
+	0 1 1 0
+$EndComp
+Text Label 14350 1450 0    50   ~ 0
+DOOR_CLOSE_LIMIT_RAW
+Text Label 14650 1450 0    50   ~ 0
+GPIO21
+$Comp
+L Device:R R10
+U 1 1 119
+P 14650 1700
+F 0 "R10" H 14730 1840 50 0000 L CNN
+F 1 "10k" H 14730 1750 50 0000 L CNN
+	1    14650 1700
+	1 0 0 -1
+$EndComp
+Text Label 14650 1550 0    50   ~ 0
+GPIO21
+Text Label 14650 1850 0    50   ~ 0
+GND
+$Comp
+L Device:C C7
+U 1 1 120
+P 14950 1700
+F 0 "C7" H 15030 1840 50 0000 L CNN
+F 1 "100nF" H 15030 1750 50 0000 L CNN
+	1    14950 1700
+	1 0 0 -1
+$EndComp
+Text Label 14950 1550 0    50   ~ 0
+GPIO21
+Text Label 14950 1850 0    50   ~ 0
+GND
+$Comp
+L Device:R R8
+U 1 1 121
+P 14500 2000
+F 0 "R8" H 14580 2140 50 0000 L CNN
+F 1 "470R" H 14580 2050 50 0000 L CNN
+	1    14500 2000
+	0 1 1 0
+$EndComp
+Text Label 14350 2000 0    50   ~ 0
+LIFT_CLOSE_LIMIT_RAW
+Text Label 14650 2000 0    50   ~ 0
+GPIO25
+$Comp
+L Device:R R11
+U 1 1 122
+P 14650 2250
+F 0 "R11" H 14730 2390 50 0000 L CNN
+F 1 "10k" H 14730 2300 50 0000 L CNN
+	1    14650 2250
+	1 0 0 -1
+$EndComp
+Text Label 14650 2100 0    50   ~ 0
+GPIO25
+Text Label 14650 2400 0    50   ~ 0
+GND
+$Comp
+L Device:C C8
+U 1 1 123
+P 14950 2250
+F 0 "C8" H 15030 2390 50 0000 L CNN
+F 1 "100nF" H 15030 2300 50 0000 L CNN
+	1    14950 2250
+	1 0 0 -1
+$EndComp
+Text Label 14950 2100 0    50   ~ 0
+GPIO25
+Text Label 14950 2400 0    50   ~ 0
+GND
+Text Notes 14300 2550 0    40   ~ 12
+J5 pin2/3/4 are tied to *_RAW nets above via matching Text Labels placed at J5's own pin coordinates (see section 4 addendum).
+Text Notes 14300 2700 0    55   ~ 12
+NEW REV 1.7 BOOT PULLDOWNS (10k)
+$Comp
+L Device:R R18
+U 1 1 124
+P 15100 900
+F 0 "R18" H 15180 1040 50 0000 L CNN
+F 1 "10k" H 15180 950 50 0000 L CNN
+	1    15100 900
+	1 0 0 -1
+$EndComp
+Text Label 15100 750 0    50   ~ 0
+GPIO2
+Text Label 15100 1050 0    50   ~ 0
+GND
+$Comp
+L Device:R R19
+U 1 1 125
+P 15100 1450
+F 0 "R19" H 15180 1590 50 0000 L CNN
+F 1 "10k" H 15180 1500 50 0000 L CNN
+	1    15100 1450
+	1 0 0 -1
+$EndComp
+Text Label 15100 1300 0    50   ~ 0
+GPIO5
+Text Label 15100 1600 0    50   ~ 0
+GND
+$Comp
+L Device:R R20
+U 1 1 126
+P 15100 2000
+F 0 "R20" H 15180 2140 50 0000 L CNN
+F 1 "10k" H 15180 2050 50 0000 L CNN
+	1    15100 2000
+	1 0 0 -1
+$EndComp
+Text Label 15100 1850 0    50   ~ 0
+GPIO12
+Text Label 15100 2150 0    50   ~ 0
+GND
+Text Notes 14300 2850 0    40   ~ 12
+R18=GPIO2, R19=GPIO5, R20=GPIO12. Existing R2=GPIO17 pulldown, existing sense-line 10k (R9 above)=GPIO15 pulldown.
+Text Label 1400 5450 0    50   ~ 0
+DOOR_OPEN_LIMIT_RAW
+Text Label 1400 5550 0    50   ~ 0
+DOOR_CLOSE_LIMIT_RAW
+Text Label 1400 5650 0    50   ~ 0
+LIFT_CLOSE_LIMIT_RAW
+Text Label 1400 4250 0    50   ~ 0
+MOTOR_CTRL_5V
+Text Label 1400 4350 0    50   ~ 0
+GND
+Text Label 1400 4450 0    50   ~ 0
+GPIO14
+Text Label 1400 4550 0    50   ~ 0
+GPIO12
+Text Label 1400 4650 0    50   ~ 0
+GPIO13
+Text Label 3700 4250 0    50   ~ 0
+MOTOR_CTRL_5V
+Text Label 3700 4350 0    50   ~ 0
+GND
+Text Label 3700 4450 0    50   ~ 0
+GPIO19
+Text Label 3700 4550 0    50   ~ 0
+GPIO16
+Text Label 3700 4650 0    50   ~ 0
+GPIO5
+Text Label 1300 6600 0    50   ~ 0
++3V3
+Text Label 1300 6700 0    50   ~ 0
+GPIO34
+$Comp
+L Device:R R12
+U 1 1 47
+P 1300 6950
+F 0 "R12" H 1380 7090 50 0000 L CNN
+F 1 "10k" H 1380 7000 50 0000 L CNN
+	1    1300 6950
+	1 0 0 -1
+$EndComp
+Text Label 1300 6800 0    50   ~ 0
+GPIO34
+Text Label 1300 7100 0    50   ~ 0
+GND
+$Comp
+L Device:C C9
+U 1 1 48
+P 1600 6950
+F 0 "C9" H 1680 7090 50 0000 L CNN
+F 1 "100nF" H 1680 7000 50 0000 L CNN
+	1    1600 6950
+	1 0 0 -1
+$EndComp
+Text Label 1600 6800 0    50   ~ 0
+GPIO34
+Text Label 1600 7100 0    50   ~ 0
+GND
+Text Label 2900 6600 0    50   ~ 0
++3V3
+Text Label 2900 6700 0    50   ~ 0
+GPIO35
+$Comp
+L Device:R R13
+U 1 1 49
+P 2900 6950
+F 0 "R13" H 2980 7090 50 0000 L CNN
+F 1 "10k" H 2980 7000 50 0000 L CNN
+	1    2900 6950
+	1 0 0 -1
+$EndComp
+Text Label 2900 6800 0    50   ~ 0
+GPIO35
+Text Label 2900 7100 0    50   ~ 0
+GND
+$Comp
+L Device:C C10
+U 1 1 50
+P 3200 6950
+F 0 "C10" H 3280 7090 50 0000 L CNN
+F 1 "100nF" H 3280 7000 50 0000 L CNN
+	1    3200 6950
+	1 0 0 -1
+$EndComp
+Text Label 3200 6800 0    50   ~ 0
+GPIO35
+Text Label 3200 7100 0    50   ~ 0
+GND
+Text Label 4500 6600 0    50   ~ 0
++3V3
+Text Label 4500 6700 0    50   ~ 0
+GPIO18
+$Comp
+L Device:R R14
+U 1 1 51
+P 4500 6950
+F 0 "R14" H 4580 7090 50 0000 L CNN
+F 1 "10k" H 4580 7000 50 0000 L CNN
+	1    4500 6950
+	1 0 0 -1
+$EndComp
+Text Label 4500 6800 0    50   ~ 0
+GPIO18
+Text Label 4500 7100 0    50   ~ 0
+GND
+$Comp
+L Device:C C11
+U 1 1 52
+P 4800 6950
+F 0 "C11" H 4880 7090 50 0000 L CNN
+F 1 "100nF" H 4880 7000 50 0000 L CNN
+	1    4800 6950
+	1 0 0 -1
+$EndComp
+Text Label 4800 6800 0    50   ~ 0
+GPIO18
+Text Label 4800 7100 0    50   ~ 0
+GND
+Text Label 6100 6600 0    50   ~ 0
++3V3
+Text Label 6100 6700 0    50   ~ 0
+GPIO22
+$Comp
+L Device:R R15
+U 1 1 53
+P 6100 6950
+F 0 "R15" H 6180 7090 50 0000 L CNN
+F 1 "10k" H 6180 7000 50 0000 L CNN
+	1    6100 6950
+	1 0 0 -1
+$EndComp
+Text Label 6100 6800 0    50   ~ 0
+GPIO22
+Text Label 6100 7100 0    50   ~ 0
+GND
+$Comp
+L Device:C C12
+U 1 1 54
+P 6400 6950
+F 0 "C12" H 6480 7090 50 0000 L CNN
+F 1 "100nF" H 6480 7000 50 0000 L CNN
+	1    6400 6950
+	1 0 0 -1
+$EndComp
+Text Label 6400 6800 0    50   ~ 0
+GPIO22
+Text Label 6400 7100 0    50   ~ 0
+GND
+$EndSCHEMATC
