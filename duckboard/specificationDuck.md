@@ -617,6 +617,8 @@ Additional filtering:
 
 GPIO6–11 remain reserved for ESP32 flash operation.
 
+21. Level input
+Tank level input at GPIO26
 ---
 
 # 21. Open Design Items
