@@ -1,0 +1,5 @@
+{
+    "idf.currentSetup": "C:\\esp\\v6.1-beta1\\esp-idf",
+    "idf.flashType": "UART",
+    "cmake.sourceDirectory": "C:/git/personal/duckhouse/idf-vesion2026/DH_controller/DH_control"
+}
