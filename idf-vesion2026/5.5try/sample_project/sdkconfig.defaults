@@ -1,0 +1,26 @@
+# Duck House Controller - ESP-IDF v5.5.x, original ESP32 (WROOM-32U DevKit)
+CONFIG_IDF_TARGET="esp32"
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+
+# 10 ms control tick needs a 1 kHz FreeRTOS tick (software spec, section 2)
+CONFIG_FREERTOS_HZ=1000
+
+# A hung control task must reset the chip into the safe start-up state
+CONFIG_ESP_TASK_WDT_EN=y
+CONFIG_ESP_TASK_WDT_PANIC=y
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=5
+
+CONFIG_ESP_BROWNOUT_DET=y
+
+# One app partition plus NVS, no OTA (software spec, section 13)
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
+
+# HTTPS to ThingSpeak: validate the server with the built-in certificate bundle
+CONFIG_MBEDTLS_CERTIFICATE_BUNDLE=y
+
+# Light sleep: the idle-task watchdog check does not survive the esp_timer time
+# jump after a sleep. The control task is subscribed only while it is active.
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU0=n
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=n

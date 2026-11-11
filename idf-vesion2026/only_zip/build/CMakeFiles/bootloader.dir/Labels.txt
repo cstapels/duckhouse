@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/CMakeFiles/bootloader
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/CMakeFiles/bootloader.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/CMakeFiles/bootloader-complete.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/git/personal/duckhouse/idf-vesion2026/only_zip/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

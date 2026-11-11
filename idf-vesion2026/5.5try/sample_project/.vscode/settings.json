@@ -22,7 +22,7 @@
   "idf.openOcdConfigs": [
     "board/esp32-wrover-kit-3.3v.cfg"
   ],
-  "idf.port": "detect",
+  "idf.port": "COM7",
   "idf.currentSetup": "C:\\esp\\v5.5.6\\esp-idf",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32"
@@ -32,5 +32,6 @@
     "--background-index",
     "--query-driver=**",
     "--compile-commands-dir=c:\\git\\personal\\duckhouse\\idf-vesion2026\\5.5try\\sample_project\\build"
-  ]
+  ],
+  "idf.flashType": "UART"
 }
